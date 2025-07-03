@@ -14,6 +14,11 @@ public class Restaurante {
     private String nome;
     private String cnpj;
     private String endereco;
+    private Boolean ativo = true; // Restaurante ativo por padrão
+
+    public Boolean getAtivo() {
+        return ativo != null ? ativo : true;
+    }
 
     @OneToMany(mappedBy = "restaurante", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore // Evita recursão infinita e lazy loading issues

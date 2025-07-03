@@ -14,9 +14,12 @@ public class Cliente {
     private String email;
     private String telefone;
     private String endereco;
+    private Boolean ativo = true; // Cliente ativo por padrão
+
+    public boolean isAtivo() {
+        return ativo != null ? ativo : true;
+    }
 
     // @OneToMany(mappedBy = "cliente")
     // private List<Pedido> pedidos;
 }
-
-

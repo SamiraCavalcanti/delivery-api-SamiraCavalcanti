@@ -14,6 +14,11 @@ public class Produto {
     private String nome;
     private String descricao;
     private BigDecimal preco;
+    private Boolean disponivel = true; // Produto disponível por padrão
+
+    public Boolean getDisponivel() {
+        return disponivel != null ? disponivel : true;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurante_id")

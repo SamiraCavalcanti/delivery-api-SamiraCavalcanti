@@ -1,34 +1,33 @@
--- data.sql
+-- Dados de exemplo para testes
 
--- Inserindo Clientes
-INSERT INTO cliente (nome, email, telefone, endereco) VALUES
-('João Silva', 'joao.silva@email.com', '(11) 98765-4321', 'Rua das Flores, 123, São Paulo'),
-('Maria Oliveira', 'maria.o@email.com', '(21) 91234-5678', 'Avenida Copacabana, 456, Rio de Janeiro');
+-- Inserir clientes
+INSERT INTO cliente (nome, email, telefone, endereco, ativo) VALUES
+('João Silva', 'joao@email.com', '(11) 99999-1111', 'Rua A, 123 - São Paulo/SP', true),
+('Maria Santos', 'maria@email.com', '(11) 99999-2222', 'Rua B, 456 - São Paulo/SP', true);
 
--- Inserindo Restaurantes
-INSERT INTO restaurante (nome, cnpj, endereco) VALUES
-('Pizzaria do Zé', '12.345.678/0001-99', 'Rua da Pizza, 10, São Paulo'),
-('Hamburgueria Top', '98.765.432/0001-11', 'Avenida do Burger, 20, Rio de Janeiro');
+-- Inserir restaurantes
+INSERT INTO restaurante (nome, cnpj, endereco, ativo) VALUES
+('Pizzaria do Zé', '12.345.678/0001-99', 'Rua da Pizza, 10, São Paulo', true),
+('Hamburgueria Top', '98.765.432/0001-11', 'Av. dos Lanches, 20, Rio de Janeiro', true);
 
--- Inserindo Produtos para a Pizzaria do Zé (ID=1)
-INSERT INTO produto (nome, descricao, preco, restaurante_id) VALUES
-('Pizza Margherita', 'Molho, mussarela e manjericão', 45.00, 1),
-('Pizza Calabresa', 'Molho, mussarela e calabresa fatiada', 50.00, 1),
-('Refrigerante Lata', 'Coca-Cola, Guaraná ou Fanta', 5.00, 1);
+-- Inserir produtos
+INSERT INTO produto (nome, descricao, preco, disponivel, restaurante_id) VALUES
+-- Pizzaria do Zé
+('Pizza Margherita', 'Pizza tradicional com tomate e manjericão', 35.90, true, 1),
+('Pizza Calabresa', 'Pizza com calabresa e cebola', 38.90, true, 1),
+('Refrigerante', 'Coca-Cola 350ml', 5.90, true, 1),
 
--- Inserindo Produtos para a Hamburgueria Top (ID=2)
-INSERT INTO produto (nome, descricao, preco, restaurante_id) VALUES
-('X-Burger Clássico', 'Pão, carne, queijo, alface e tomate', 30.00, 2),
-('X-Bacon Especial', 'Pão, carne, queijo, bacon crocante, cebola caramelizada', 35.50, 2),
-('Batata Frita', 'Porção individual de batata frita', 12.00, 2);
+-- Hamburgueria Top  
+('X-Burger', 'Hambúrguer com queijo, alface e tomate', 18.90, true, 2),
+('X-Bacon', 'Hambúrguer com bacon, queijo, alface e tomate', 22.90, true, 2),
+('Batata Frita', 'Porção de batata frita', 12.90, true, 2);
 
--- Inserindo um Pedido de exemplo
--- Pedido do cliente João Silva (ID=1) no restaurante Pizzaria do Zé (ID=1)
-INSERT INTO pedido (data_hora, status, valor_total, cliente_id, restaurante_id) VALUES
-(CURRENT_TIMESTAMP, 'ENTREGUE', 95.00, 1, 1);
+-- Inserir um pedido de exemplo
+INSERT INTO pedido (numero_pedido, data_pedido, status, valor_total, observacoes, cliente_id, restaurante_id) VALUES
+('PED-12345678', NOW(), 'PENDENTE', 54.80, 'Sem cebola', 1, 1);
 
--- Associando os produtos ao pedido (ID=1)
--- O pedido contém uma Pizza Margherita (ID=1) e uma Pizza Calabresa (ID=2)
-INSERT INTO pedido_produto (pedido_id, produto_id) VALUES
-(1, 1), -- Pizza Margherita
-(1, 2); -- Pizza Calabresa
+-- Inserir itens do pedido
+INSERT INTO item_pedido (quantidade, preco_unitario, subtotal, pedido_id, produto_id) VALUES
+(1, 35.90, 35.90, 1, 1), -- Pizza Margherita
+(1, 38.90, 38.90, 1, 2), -- Pizza Calabresa  
+(2, 5.90, 11.80, 1, 3);  -- 2 Refrigerantes
